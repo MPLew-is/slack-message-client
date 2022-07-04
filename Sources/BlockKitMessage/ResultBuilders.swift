@@ -58,6 +58,11 @@ extension Header {
 		self.id = id
 		self.text = .plainText(text)
 	}
+
+	public init(_ text: String, id: String? = nil) {
+		self.id = id
+		self.text = .plainText(.init(text))
+	}
 }
 
 
@@ -67,9 +72,20 @@ extension Section {
 		self.text = .mrkdwn(mrkdwn)
 	}
 
+	public init(mrkdwn: String, id: String? = nil) {
+		self.id = id
+		self.text = .mrkdwn(.init(mrkdwn))
+	}
+
+
 	public init(plainText: PlainText, id: String? = nil) {
 		self.id = id
 		self.text = .plainText(plainText)
+	}
+
+	public init(plainText: String, id: String? = nil) {
+		self.id = id
+		self.text = .plainText(.init(plainText))
 	}
 }
 
