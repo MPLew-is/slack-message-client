@@ -53,19 +53,34 @@ extension Context {
 }
 
 
+// Allow a mrkdwn block to be created from an unlabeled string.
+extension Mrkdwn {
+	public init(_ string: String) {
+		self.text = string
+		self.interpretLinksVerbatim = nil
+	}
+}
+
 // Allow a mrkdwn block to be converted from a string literal while writing a result builder block.
 extension Mrkdwn: ExpressibleByStringInterpolation {
 	public init(stringLiteral: String) {
-		self.text = stringLiteral
-		self.interpretLinksVerbatim = nil
+		self.init(stringLiteral)
+	}
+}
+
+
+// Allow a plaintext block to be created from an unlabeled string.
+extension PlainText {
+	public init(_ string: String) {
+		self.text = string
+		self.convertEscapedEmoji = nil
 	}
 }
 
 // Allow a plaintext block to be converted from a string literal while writing a result builder block.
 extension PlainText: ExpressibleByStringInterpolation {
 	public init(stringLiteral: String) {
-		self.text = stringLiteral
-		self.convertEscapedEmoji = nil
+		self.init(stringLiteral)
 	}
 }
 
