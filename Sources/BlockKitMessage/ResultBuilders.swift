@@ -1,3 +1,4 @@
+/// Object representing any raw/untagged Block Kit block content that can be used as [a top-level block in a message](https://api.slack.com/reference/block-kit/blocks)
 public protocol BlockContent: Codable {}
 
 extension Header: BlockContent {}
@@ -6,10 +7,19 @@ extension Context: BlockContent {}
 
 // Add a convenience result builder for creating a message.
 extension Message {
+	/// Helper object to enable result builder syntax for writing a message
 	@resultBuilder
 	public struct MessageBuilder {
-		public static func buildBlock(_ blocks: BlockContent...) -> [Block] {
-			return blocks.compactMap { .init(wrapping: $0) }
+		/**
+		Build wrapped Block Kit blocks from their raw content.
+
+		- Parameters:
+			- contents: objects representing the raw content of the blocks constituting this message
+
+		- Returns: Wrapped objects containing the input contents, which can be parsed or encoded for the output message
+		*/
+		public static func buildBlock(_ contents: BlockContent...) -> [Block] {
+			return contents.compactMap { .init(wrapping: $0) }
 		}
 	}
 
@@ -26,17 +36,28 @@ extension Message {
 }
 
 
+/// Object representing any raw/untagged Block Kit context block content that can be used as a top-level element inside [a context block](https://api.slack.com/reference/block-kit/blocks#context)
 public protocol ContextElementContent: Codable {}
+
 extension Image: ContextElementContent {}
 extension Mrkdwn: ContextElementContent {}
 extension PlainText: ContextElementContent {}
 
 // Add a convenience result builder for creating a message.
 extension Context {
+	/// Helper object to enable result builder syntax for writing the contents of a context block
 	@resultBuilder
 	public struct ContextBlockBuilder {
-		public static func buildBlock(_ elements: ContextElementContent...) -> [ContextElement] {
-			return elements.compactMap { .init(wrapping: $0) }
+		/**
+		Build wrapped Block Kit context block elements from their raw content.
+
+		- Parameters:
+			- contents: objects representing the raw content of the elements constituting this context block
+
+		- Returns: Wrapped objects containing the input contents, which can be parsed or encoded for the output block
+		*/
+		public static func buildBlock(_ contents: ContextElementContent...) -> [ContextElement] {
+			return contents.compactMap { .init(wrapping: $0) }
 		}
 	}
 
@@ -54,11 +75,25 @@ extension Context {
 
 
 extension Header {
+	/**
+	Create an instance from a pre-wrapped plain text object.
+
+	- Parameters:
+		- text: pre-wrapped `PlainText` object representing the header's contents
+		- id: optional string identifier for the block
+	*/
 	public init(_ text: PlainText, id: String? = nil) {
 		self.id = id
 		self.text = .plainText(text)
 	}
 
+	/**
+	Create an instance from a raw string.
+
+	- Parameters:
+		- text: string of the header's contents
+		- id: optional string identifier for the block
+	*/
 	public init(_ text: String, id: String? = nil) {
 		self.id = id
 		self.text = .plainText(.init(text))
@@ -67,22 +102,50 @@ extension Header {
 
 
 extension Section {
+	/**
+	Create a mrkdwn instance from a pre-wrapped mrkdwn object.
+
+	- Parameters:
+		- text: pre-wrapped `Mrkdwn` object representing the section's contents
+		- id: optional string identifier for the block
+	*/
 	public init(mrkdwn: Mrkdwn, id: String? = nil) {
 		self.id = id
 		self.text = .mrkdwn(mrkdwn)
 	}
 
+	/**
+	Create a mrkdwn instance from a raw string.
+
+	- Parameters:
+		- text: string of the sections's contents
+		- id: optional string identifier for the block
+	*/
 	public init(mrkdwn: String, id: String? = nil) {
 		self.id = id
 		self.text = .mrkdwn(.init(mrkdwn))
 	}
 
 
+	/**
+	Create a plain text instance from a pre-wrapped plain text object.
+
+	- Parameters:
+		- text: pre-wrapped `PlainText` object representing the section's contents
+		- id: optional string identifier for the block
+	*/
 	public init(plainText: PlainText, id: String? = nil) {
 		self.id = id
 		self.text = .plainText(plainText)
 	}
 
+	/**
+	Create a plain text instance from a raw string.
+
+	- Parameters:
+		- text: string of the sections's contents
+		- id: optional string identifier for the block
+	*/
 	public init(plainText: String, id: String? = nil) {
 		self.id = id
 		self.text = .plainText(.init(plainText))
@@ -90,8 +153,13 @@ extension Section {
 }
 
 
-// Allow a mrkdwn block to be created from an unlabeled string.
 extension Mrkdwn {
+	/**
+	Create an instance from an unlabeled string value.
+
+	- Parameters:
+		- string: string value representing the mrkdwn contents
+	*/
 	public init(_ string: String) {
 		self.text = string
 		self.interpretLinksVerbatim = nil
@@ -106,8 +174,13 @@ extension Mrkdwn: ExpressibleByStringInterpolation {
 }
 
 
-// Allow a plaintext block to be created from an unlabeled string.
 extension PlainText {
+	/**
+	Create an instance from an unlabeled string value.
+
+	- Parameters:
+		- string: string value representing the plain text contents
+	*/
 	public init(_ string: String) {
 		self.text = string
 		self.convertEscapedEmoji = nil

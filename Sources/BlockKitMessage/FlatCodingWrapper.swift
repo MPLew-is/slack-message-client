@@ -9,6 +9,7 @@ public protocol CaseNameReflectable {
 	/// Name of the enum instance's case
 	var caseName: String { get }
 }
+
 public extension CaseNameReflectable {
 	var caseName: String {
 		let mirror = Mirror(reflecting: self)
@@ -29,6 +30,7 @@ public protocol SingleCasedEnum: CaseIterable {
 	/// An instance of the only case defined by the enum
 	static var onlyCase: Self { get }
 }
+
 public extension SingleCasedEnum {
 	static var onlyCase: Self {
 		return Self.allCases.first!
@@ -50,6 +52,7 @@ public protocol ShadowEnum: Codable, RawRepresentable, CaseIterable, CaseNameRef
 	*/
 	init?(shadowing: CaseNameReflectable)
 }
+
 extension ShadowEnum {
 	// Define a helper computed property for indexing the cases by name, since we can't store real properties in extensions.
 	// This does result in rebuilding the `Dict` every time this enum is initialized, but there's no other way we can really provide a default implementation.
@@ -69,10 +72,9 @@ extension ShadowEnum {
 }
 
 
-/**
-Shortcut protocol for ease of use in conformers of `FlatCodable`, combining `SingleCasedEnum` and `CodingKey`
-*/
+/// Shortcut protocol for ease of use in conformers of `FlatCodable`, combining `SingleCasedEnum` and `CodingKey`
 public protocol SingleValuedCodingKey: SingleCasedEnum, CodingKey {}
+
 
 /**
 An object that is intended to have its single key-value pair encoded inline with another associated object
@@ -128,7 +130,10 @@ and:
 ````
 */
 public protocol FlatCodable: Codable {
+	/// A `CodingKey` enum that contains only a single value, representing the key of the "tag" this object will inject inline with its wrapped contents
 	associatedtype CodingKeys: SingleValuedCodingKey
+
+	/// A type representing the encoded value of the single key-value "tag" this object will inject inline with its wrapped contents
 	associatedtype CodingValue: Codable
 }
 
@@ -151,7 +156,7 @@ public protocol FlatCodingWrapper: FlatCodable {
 		- from:    already-decoded value for the single key-value pair this wrapper was encoded as
 		- decoder: Codable `Decoder` to use to parse the wrapped value
 
-	- Throws: only rethrows errors produced in normal Codable decoding
+	- Throws: Only rethrows errors produced in normal Codable decoding
 	*/
 	init(from: CodingValue, with: Decoder) throws
 
@@ -173,14 +178,20 @@ public protocol FlatCodingWrapper: FlatCodable {
 // Give default implementations for encoding and decoding, since we can do so with the protocol requirements.
 public extension FlatCodingWrapper {
 	func encode(to encoder: Encoder) throws {
+		// First encode the key and value of this wrapper.
 		var container = encoder.container(keyedBy: CodingKeys.self)
 		try container.encode(self.codingValue, forKey: .onlyCase)
+
+		// Without changing encoding levels, encode the wrapped value right alongside the "tag" of this wrapper.
 		try self.wrappedValue.encode(to: encoder)
 	}
 
 	init(from decoder: Decoder) throws {
+		// Decode the value of this wrapper's "tag", since it may need it to determine how to decode the wrapped value.
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		let shadow = try container.decode(CodingValue.self, forKey: .onlyCase)
+
+		// Having decoded the tag, try to decode the whole object without changing encoding levels.
 		try self.init(from: shadow, with: decoder)
 	}
 }
