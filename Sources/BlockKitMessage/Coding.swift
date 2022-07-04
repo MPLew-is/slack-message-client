@@ -4,7 +4,7 @@
 extension Block: CaseNameReflectable {}
 
 extension Block: FlatCodingWrapper {
-	init(from shadow: CodingValue, with decoder: Decoder) throws {
+	public init(from shadow: CodingValue, with decoder: Decoder) throws {
 		switch shadow {
 			case .header:
 				self = .header(try .init(from: decoder))
@@ -18,7 +18,7 @@ extension Block: FlatCodingWrapper {
 	}
 
 
-	init?(wrapping value: Codable) {
+	public init?(wrapping value: Codable) {
 		switch value {
 			case let value as Header:
 				self = .header(value)
@@ -34,7 +34,7 @@ extension Block: FlatCodingWrapper {
 		}
 	}
 
-	var wrappedValue: Codable {
+	public var wrappedValue: Codable {
 		switch self {
 			case .header(let value):
 				return value
@@ -52,7 +52,7 @@ extension Block: FlatCodingWrapper {
 extension ContextElement: CaseNameReflectable {}
 
 extension ContextElement: FlatCodingWrapper {
-	init(from shadow: CodingValue, with decoder: Decoder) throws {
+	public init(from shadow: CodingValue, with decoder: Decoder) throws {
 		switch shadow {
 			case .plainText:
 				self = .plainText(try .init(from: decoder))
@@ -66,7 +66,7 @@ extension ContextElement: FlatCodingWrapper {
 	}
 
 
-	init?(wrapping value: Codable) {
+	public init?(wrapping value: Codable) {
 		switch value {
 			case let value as PlainText:
 				self = .plainText(value)
@@ -82,7 +82,7 @@ extension ContextElement: FlatCodingWrapper {
 		}
 	}
 
-	var wrappedValue: Codable {
+	public var wrappedValue: Codable {
 		switch self {
 			case .plainText(let value):
 				return value

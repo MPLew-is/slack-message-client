@@ -1,9 +1,9 @@
-struct Message: Codable {
+public struct Message: Codable {
 	let blocks: [Block]
 }
 
-enum Block: FlatCodable {
-	enum CodingKeys: String, SingleValuedCodingKey {
+public enum Block: FlatCodable {
+	public enum CodingKeys: String, SingleValuedCodingKey {
 		case type
 	}
 
@@ -11,7 +11,7 @@ enum Block: FlatCodable {
 	case section(Section)
 	case context(Context)
 
-	enum CodingValue: String, ShadowEnum {
+	public enum CodingValue: String, ShadowEnum {
 		case header
 		case section
 		case context
@@ -19,7 +19,7 @@ enum Block: FlatCodable {
 }
 
 
-struct Header: Codable {
+public struct Header: Codable {
 	let id: String?
 
 	let text: PlainTextOnly
@@ -31,7 +31,7 @@ struct Header: Codable {
 	}
 }
 
-struct Section: Codable {
+public struct Section: Codable {
 	let id: String?
 
 	let text: Text
@@ -48,15 +48,15 @@ struct Section: Codable {
 	}
 }
 
-struct Context: Codable {
+public struct Context: Codable {
 	let id: String?
 
 	let elements: [ContextElement]
 }
 
 
-enum ContextElement: FlatCodable {
-	enum CodingKeys: String, SingleValuedCodingKey {
+public enum ContextElement: FlatCodable {
+	public enum CodingKeys: String, SingleValuedCodingKey {
 		case type
 	}
 
@@ -64,7 +64,7 @@ enum ContextElement: FlatCodable {
 	case mrkdwn(Mrkdwn)
 	case image(Image)
 
-	enum CodingValue: String, ShadowEnum {
+	public enum CodingValue: String, ShadowEnum {
 		case plainText = "plain_text"
 		case mrkdwn
 		case image
@@ -99,7 +99,7 @@ enum PlainTextOnly: FlatCodable {
 }
 
 
-struct Image: Codable {
+public struct Image: Codable {
 	let url: String
 	let alternateText: String
 
@@ -107,9 +107,15 @@ struct Image: Codable {
 		case url           = "image_url"
 		case alternateText = "alt_text"
 	}
+
+
+	public init(url: String, alternateText: String) {
+		self.url = url
+		self.alternateText = alternateText
+	}
 }
 
-struct Mrkdwn: Codable {
+public struct Mrkdwn: Codable {
 	let text: String
 
 	// When `nil`, Slack interprets this as `false`.
@@ -122,7 +128,7 @@ struct Mrkdwn: Codable {
 	}
 }
 
-struct PlainText: Codable {
+public struct PlainText: Codable {
 	let text: String
 
 	// When `nil`, Slack interprets this as `true`.
