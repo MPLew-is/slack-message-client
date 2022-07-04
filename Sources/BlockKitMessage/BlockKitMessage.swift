@@ -23,29 +23,12 @@ public struct Header: Codable {
 	let id: String?
 
 	let text: PlainTextOnly
-
-
-	init(_ text: PlainText, id: String? = nil) {
-		self.id = id
-		self.text = .plainText(text)
-	}
 }
 
 public struct Section: Codable {
 	let id: String?
 
 	let text: Text
-
-
-	init(mrkdwn: Mrkdwn, id: String? = nil) {
-		self.id = id
-		self.text = .mrkdwn(mrkdwn)
-	}
-
-	init(plainText: PlainText, id: String? = nil) {
-		self.id = id
-		self.text = .plainText(plainText)
-	}
 }
 
 public struct Context: Codable {

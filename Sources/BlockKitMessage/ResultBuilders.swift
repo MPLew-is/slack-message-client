@@ -53,6 +53,27 @@ extension Context {
 }
 
 
+extension Header {
+	public init(_ text: PlainText, id: String? = nil) {
+		self.id = id
+		self.text = .plainText(text)
+	}
+}
+
+
+extension Section {
+	public init(mrkdwn: Mrkdwn, id: String? = nil) {
+		self.id = id
+		self.text = .mrkdwn(mrkdwn)
+	}
+
+	public init(plainText: PlainText, id: String? = nil) {
+		self.id = id
+		self.text = .plainText(plainText)
+	}
+}
+
+
 // Allow a mrkdwn block to be created from an unlabeled string.
 extension Mrkdwn {
 	public init(_ string: String) {
