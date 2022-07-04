@@ -54,7 +54,7 @@ extension Context {
 
 
 // Allow a mrkdwn block to be converted from a string literal while writing a result builder block.
-extension Mrkdwn: ExpressibleByStringLiteral {
+extension Mrkdwn: ExpressibleByStringInterpolation {
 	public init(stringLiteral: String) {
 		self.text = stringLiteral
 		self.interpretLinksVerbatim = nil
@@ -62,7 +62,7 @@ extension Mrkdwn: ExpressibleByStringLiteral {
 }
 
 // Allow a plaintext block to be converted from a string literal while writing a result builder block.
-extension PlainText: ExpressibleByStringLiteral {
+extension PlainText: ExpressibleByStringInterpolation {
 	public init(stringLiteral: String) {
 		self.text = stringLiteral
 		self.convertEscapedEmoji = nil
