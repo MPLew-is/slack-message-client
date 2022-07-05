@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-	name: "SlackMessageClient",
+	name: "slack-message-client",
 	platforms: [
 		.macOS(.v11),
 	],
