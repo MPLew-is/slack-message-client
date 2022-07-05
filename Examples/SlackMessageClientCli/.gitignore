@@ -1,0 +1,2 @@
+# Ignore the config file so credentials don't accidentally get comnmitted.
+/config.yaml
