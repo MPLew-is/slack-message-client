@@ -39,7 +39,7 @@ import SlackMessageClient
 
 @main
 struct SlackMessageExample {
-	func main() async throws {
+	static func main() async throws {
 		let message = Message.build {
 			Header("Header")
 
