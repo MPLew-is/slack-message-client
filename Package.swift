@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-	name: "BlockKitMessage",
+	name: "SlackMessageClient",
 	platforms: [
 		.macOS(.v11),
 	],
@@ -15,6 +15,10 @@ let package = Package(
 		.library(
 			name: "SlackApiClient",
 			targets: ["SlackApiClient"]
+		),
+		.library(
+			name: "SlackMessageClient",
+			targets: ["SlackMessageClient"]
 		),
 	],
 	dependencies: [
@@ -28,6 +32,14 @@ let package = Package(
 		.target(
 			name: "SlackApiClient",
 			dependencies: [
+				.product(name: "AsyncHTTPClient", package: "async-http-client"),
+			]
+		),
+		.target(
+			name: "SlackMessageClient",
+			dependencies: [
+				"BlockKitMessage",
+				"SlackApiClient",
 				.product(name: "AsyncHTTPClient", package: "async-http-client"),
 			]
 		),
