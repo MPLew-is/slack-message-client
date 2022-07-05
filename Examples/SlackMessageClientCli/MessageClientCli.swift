@@ -61,6 +61,6 @@ struct MessageClientCli: AsyncParsableCommand {
 			}
 		}
 
-		try await client.post(channel: channel, message: message)
+		try await client.post(message, to: channel)
 	}
 }

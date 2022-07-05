@@ -77,7 +77,7 @@ public struct MessageClient {
 		- channel: Slack channel ID string where the message should be posted
 		- message: message object representing the message to post
 	*/
-	public func post(channel: String, message: Message) async throws {
+	public func post(_ message: Message, to channel: String) async throws {
 		let requestBody: PostMessageRequest = .init(channel: channel, message: message)
 		let requestBody_json: Data = try JSONEncoder().encode(requestBody)
 
