@@ -47,8 +47,7 @@ public protocol ShadowEnum: Codable, RawRepresentable, CaseIterable, CaseNameRef
 	/**
 	Create an instance of this shadow enum from an instance of the other.
 
-	- Parameters:
-		- shadowing: an instance of the "parent" enum to create a matching instance of this enum from
+	- Parameter shadowing: an instance of the "parent" enum to create a matching instance of this enum from
 	*/
 	init?(shadowing: CaseNameReflectable)
 }

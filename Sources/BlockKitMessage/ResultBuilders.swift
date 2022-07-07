@@ -13,9 +13,7 @@ extension Message {
 		/**
 		Build wrapped Block Kit blocks from their raw content.
 
-		- Parameters:
-			- contents: objects representing the raw content of the blocks constituting this message
-
+		- Parameter contents: objects representing the raw content of the blocks constituting this message
 		- Returns: Wrapped objects containing the input contents, which can be parsed or encoded for the output message
 		*/
 		public static func buildBlock(_ contents: BlockContent...) -> [Block] {
@@ -28,7 +26,7 @@ extension Message {
 
 	This unfortunately cannot just be an `init` since the `Decodable` initializer seems to be selected by the compiler when actually writing a result builder block, even though that won't compile.
 
-	- Parameter: closure representing the output of a result builder block
+	- Parameter builder: closure representing the output of a result builder block
 	*/
 	public static func build(@MessageBuilder _ builder: () -> [Block]) -> Self {
 		return .init(blocks: builder())
@@ -51,9 +49,7 @@ extension Context {
 		/**
 		Build wrapped Block Kit context block elements from their raw content.
 
-		- Parameters:
-			- contents: objects representing the raw content of the elements constituting this context block
-
+		- Parameter contents: objects representing the raw content of the elements constituting this context block
 		- Returns: Wrapped objects containing the input contents, which can be parsed or encoded for the output block
 		*/
 		public static func buildBlock(_ contents: ContextElementContent...) -> [ContextElement] {
@@ -66,7 +62,7 @@ extension Context {
 
 	This unfortunately cannot just be an `init` since the `Decodable` initializer seems to be selected by the compiler when actually writing a result builder block, even though that won't compile.
 
-	- Parameter: closure representing the output of a result builder block
+	- Parameter builder: closure representing the output of a result builder block
 	*/
 	public static func build(id: String? = nil, @ContextBlockBuilder _ builder: () -> [ContextElement]) -> Self {
 		return .init(id: id, elements: builder())
@@ -157,8 +153,7 @@ extension Mrkdwn {
 	/**
 	Create an instance from an unlabeled string value.
 
-	- Parameters:
-		- string: string value representing the mrkdwn contents
+	- Parameter string: string value representing the mrkdwn contents
 	*/
 	public init(_ string: String) {
 		self.text = string
@@ -178,8 +173,7 @@ extension PlainText {
 	/**
 	Create an instance from an unlabeled string value.
 
-	- Parameters:
-		- string: string value representing the plain text contents
+	- Parameter string: string value representing the plain text contents
 	*/
 	public init(_ string: String) {
 		self.text = string
