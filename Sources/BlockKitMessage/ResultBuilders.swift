@@ -6,10 +6,10 @@ extension Section: BlockContent {}
 extension Context: BlockContent {}
 
 // Add a convenience result builder for creating a message.
-extension Message {
+public extension Message {
 	/// Helper object to enable result builder syntax for writing a message
 	@resultBuilder
-	public struct MessageBuilder {
+	struct MessageBuilder {
 		/**
 		Build wrapped Block Kit blocks from their raw content.
 
@@ -28,7 +28,7 @@ extension Message {
 
 	- Parameter builder: closure representing the output of a result builder block
 	*/
-	public static func build(@MessageBuilder _ builder: () -> [Block]) -> Self {
+	static func build(@MessageBuilder _ builder: () -> [Block]) -> Self {
 		return .init(blocks: builder())
 	}
 }
@@ -42,10 +42,10 @@ extension Mrkdwn: ContextElementContent {}
 extension PlainText: ContextElementContent {}
 
 // Add a convenience result builder for creating a message.
-extension Context {
+public extension Context {
 	/// Helper object to enable result builder syntax for writing the contents of a context block
 	@resultBuilder
-	public struct ContextBlockBuilder {
+	struct ContextBlockBuilder {
 		/**
 		Build wrapped Block Kit context block elements from their raw content.
 
@@ -64,13 +64,13 @@ extension Context {
 
 	- Parameter builder: closure representing the output of a result builder block
 	*/
-	public static func build(id: String? = nil, @ContextBlockBuilder _ builder: () -> [ContextElement]) -> Self {
+	static func build(id: String? = nil, @ContextBlockBuilder _ builder: () -> [ContextElement]) -> Self {
 		return .init(id: id, elements: builder())
 	}
 }
 
 
-extension Header {
+public extension Header {
 	/**
 	Create an instance from a pre-wrapped plain text object.
 
@@ -78,7 +78,7 @@ extension Header {
 		- text: pre-wrapped `PlainText` object representing the header's contents
 		- id: optional string identifier for the block
 	*/
-	public init(_ text: PlainText, id: String? = nil) {
+	init(_ text: PlainText, id: String? = nil) {
 		self.id = id
 		self.text = .plainText(text)
 	}
@@ -90,14 +90,14 @@ extension Header {
 		- text: string of the header's contents
 		- id: optional string identifier for the block
 	*/
-	public init(_ text: String, id: String? = nil) {
+	init(_ text: String, id: String? = nil) {
 		self.id = id
 		self.text = .plainText(.init(text))
 	}
 }
 
 
-extension Section {
+public extension Section {
 	/**
 	Create a mrkdwn instance from a pre-wrapped mrkdwn object.
 
@@ -105,7 +105,7 @@ extension Section {
 		- text: pre-wrapped `Mrkdwn` object representing the section's contents
 		- id: optional string identifier for the block
 	*/
-	public init(mrkdwn: Mrkdwn, id: String? = nil) {
+	init(mrkdwn: Mrkdwn, id: String? = nil) {
 		self.id = id
 		self.text = .mrkdwn(mrkdwn)
 	}
@@ -117,7 +117,7 @@ extension Section {
 		- text: string of the sections's contents
 		- id: optional string identifier for the block
 	*/
-	public init(mrkdwn: String, id: String? = nil) {
+	init(mrkdwn: String, id: String? = nil) {
 		self.id = id
 		self.text = .mrkdwn(.init(mrkdwn))
 	}
@@ -130,7 +130,7 @@ extension Section {
 		- text: pre-wrapped `PlainText` object representing the section's contents
 		- id: optional string identifier for the block
 	*/
-	public init(plainText: PlainText, id: String? = nil) {
+	init(plainText: PlainText, id: String? = nil) {
 		self.id = id
 		self.text = .plainText(plainText)
 	}
@@ -142,20 +142,20 @@ extension Section {
 		- text: string of the sections's contents
 		- id: optional string identifier for the block
 	*/
-	public init(plainText: String, id: String? = nil) {
+	init(plainText: String, id: String? = nil) {
 		self.id = id
 		self.text = .plainText(.init(plainText))
 	}
 }
 
 
-extension Mrkdwn {
+public extension Mrkdwn {
 	/**
 	Create an instance from an unlabeled string value.
 
 	- Parameter string: string value representing the mrkdwn contents
 	*/
-	public init(_ string: String) {
+	init(_ string: String) {
 		self.text = string
 		self.interpretLinksVerbatim = nil
 	}
@@ -169,13 +169,13 @@ extension Mrkdwn: ExpressibleByStringInterpolation {
 }
 
 
-extension PlainText {
+public extension PlainText {
 	/**
 	Create an instance from an unlabeled string value.
 
 	- Parameter string: string value representing the plain text contents
 	*/
-	public init(_ string: String) {
+	init(_ string: String) {
 		self.text = string
 		self.convertEscapedEmoji = nil
 	}
