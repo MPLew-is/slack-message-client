@@ -1,7 +1,7 @@
 /// Root object representing an entire Block Kit message
 public struct Message: Codable {
 	/// List of blocks containing the contents of the message
-	let blocks: [Block]
+	public let blocks: [Block]
 }
 
 /**
@@ -36,28 +36,28 @@ public enum Block: FlatCodable {
 /// Object representing the contents of [a Block Kit header block](https://api.slack.com/reference/block-kit/blocks#header)
 public struct Header: Codable {
 	/// Unique identifier for this block
-	let id: String?
+	public let id: String?
 
 	/// Wrapped plain-text contents of this block
-	let text: PlainTextOnly
+	public let text: PlainTextOnly
 }
 
 /// Object representing the contents of [a Block Kit section block](https://api.slack.com/reference/block-kit/blocks#section)
 public struct Section: Codable {
 	/// Unique identifier for this block
-	let id: String?
+	public let id: String?
 
 	/// Wrapped text contents of this block
-	let text: Text
+	public let text: Text
 }
 
 /// Object representing the contents of [a Block Kit context block](https://api.slack.com/reference/block-kit/blocks#context)
 public struct Context: Codable {
 	/// Unique identifier for this block
-	let id: String?
+	public let id: String?
 
 	/// Wrapped child elements of this block
-	let elements: [ContextElement]
+	public let elements: [ContextElement]
 }
 
 
@@ -95,18 +95,18 @@ Object wrapping [a Block Kit text object](https://api.slack.com/reference/block-
 This is an enum of the possible element types, each with a corresponding associated value of the actual element contents.
 This wrapping approach was chosen (as opposed to just having the element contents conform to a single protocol) to allow for easy traversal of the message structure in Swift simply by checking enum cases.
 */
-enum Text: FlatCodable {
+public enum Text: FlatCodable {
 	/// The wrapped content is [a plain text object]((https://api.slack.com/reference/block-kit/composition-objects#text)
 	case plainText(PlainText)
 	/// The wrapped content is [a mrkdwn text object](https://api.slack.com/reference/block-kit/composition-objects#text)
 	case mrkdwn(Mrkdwn)
 
 
-	enum CodingKeys: String, SingleValuedCodingKey {
+	public enum CodingKeys: String, SingleValuedCodingKey {
 		case type
 	}
 
-	enum CodingValue: String, ShadowEnum {
+	public enum CodingValue: String, ShadowEnum {
 		case plainText = "plain_text"
 		case mrkdwn
 	}
@@ -119,16 +119,16 @@ Object wrapping [a Block Kit plain text object](https://api.slack.com/reference/
 This is an enum of the possible element types, each with a corresponding associated value of the actual element contents.
 This wrapping approach was chosen (as opposed to just having the element contents conform to a single protocol) to allow for easy traversal of the message structure in Swift simply by checking enum cases.
 */
-enum PlainTextOnly: FlatCodable {
+public enum PlainTextOnly: FlatCodable {
 	/// The wrapped content is [a plain text object](https://api.slack.com/reference/block-kit/composition-objects#text)
 	case plainText(PlainText)
 
 
-	enum CodingKeys: String, SingleValuedCodingKey {
+	public enum CodingKeys: String, SingleValuedCodingKey {
 		case type
 	}
 
-	enum CodingValue: String, ShadowEnum {
+	public enum CodingValue: String, ShadowEnum {
 		case plainText = "plain_text"
 	}
 }
@@ -137,9 +137,9 @@ enum PlainTextOnly: FlatCodable {
 /// Object representing the contents of [a Block Kit image block]https://api.slack.com/reference/block-kit/blocks#image)
 public struct Image: Codable {
 	/// URL at which the image contents are stored
-	let url: String
+	public let url: String
 	/// Alternate text summary of the image
-	let alternateText: String
+	public let alternateText: String
 
 	/**
 	Create an instance from the component properties
@@ -154,7 +154,7 @@ public struct Image: Codable {
 	}
 
 
-	enum CodingKeys: String, CodingKey {
+	internal enum CodingKeys: String, CodingKey {
 		case url           = "image_url"
 		case alternateText = "alt_text"
 	}
