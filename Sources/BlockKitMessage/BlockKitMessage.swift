@@ -162,14 +162,14 @@ public struct Image: Codable {
 
 public struct Mrkdwn: Codable {
 	/// Mrkdwn-formatted text content
-	let text: String
+	public let text: String
 
 	/**
 	Whether to auto-parse links (URLs, channel references, username mentions) (`false`) or not (`true`)
 
 	When `nil`, Slack interprets this as `false`.
 	*/
-	let interpretLinksVerbatim: Bool?
+	public let interpretLinksVerbatim: Bool?
 
 
 	enum CodingKeys: String, CodingKey {
@@ -180,14 +180,14 @@ public struct Mrkdwn: Codable {
 
 public struct PlainText: Codable {
 	/// Plain text content
-	let text: String
+	public let text: String
 
 	/**
 	Whether to auto-parse colon-escaped emoji (for example, `:tada:`) (`true`) or not (`false)`)
 
 	When `nil`, Slack interprets this as `true`.
 	*/
-	let convertEscapedEmoji: Bool?
+	public let convertEscapedEmoji: Bool?
 
 
 	private enum CodingKeys: String, CodingKey {
