@@ -77,6 +77,7 @@ public enum ContextElement: FlatCodable {
 	/// The wrapped context element is [an image block](https://api.slack.com/reference/block-kit/blocks#image)
 	case image(Image)
 
+
 	public enum CodingKeys: String, SingleValuedCodingKey {
 		case type
 	}
