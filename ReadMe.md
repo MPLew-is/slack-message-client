@@ -102,7 +102,7 @@ Feel free to file an issue/PR to change that though.
 
 ### Slack message client ###
 
-- [x] [chat.postMessage method](https://api.slack.com/methods/chat.postMessage) integration
+- [x] [`chat.postMessage` method](https://api.slack.com/methods/chat.postMessage) integration
 	- [x] `channel` argument
 	- Attachments and optional arguments not currently planned
 
@@ -110,6 +110,6 @@ Feel free to file an issue/PR to change that though.
 
 - [ ] Sending raw JSON blocks generated externally
 
-- [ ] Optional credentials verification on initialization to fail quickly ([api.test method](https://api.slack.com/methods/api.test))
+- [ ] Optional credentials verification on initialization to fail quickly ([`api.test` method](https://api.slack.com/methods/api.test))
 
 - [ ] Better parsing and handling of HTTP and Slack API errors
