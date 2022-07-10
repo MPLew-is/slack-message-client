@@ -154,7 +154,7 @@ public struct Image: Codable {
 	}
 
 
-	internal enum CodingKeys: String, CodingKey {
+	private enum CodingKeys: String, CodingKey {
 		case url           = "image_url"
 		case alternateText = "alt_text"
 	}
@@ -190,7 +190,7 @@ public struct PlainText: Codable {
 	let convertEscapedEmoji: Bool?
 
 
-	enum CodingKeys: String, CodingKey {
+	private enum CodingKeys: String, CodingKey {
 		case text
 		case convertEscapedEmoji = "emoji"
 	}
