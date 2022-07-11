@@ -9,7 +9,10 @@ This example should always be executed from inside this directory (since it sear
 
 At the end of this quick start, you should be able to post an example message like the following to your configured channel:
 
-![Example message output](example-message.png)
+<picture>
+	<source media="(prefers-color-scheme: dark)" srcset="example-message-dark.png">
+	<img alt="Example message posted to chosen channel after completing below steps" src="example-message-light.png">
+</picture>
 
 
 ### Setup ###
@@ -24,7 +27,10 @@ Derived from [Slack's setup guide for the equivalent GitHub Actions workflow](ht
 6. Invite the bot user into the channel you wish to post messages to (`/invite @bot_user_name`).
 7. Click the channel name in the upper bar, then copy the channel ID from the resulting screen and replace the example value for the key `channel` in `config.yaml`:
 
-![Slack channel ID callout](channel-id-callout.png)
+<picture>
+	<source media="(prefers-color-scheme: dark)" srcset="channel-id-callout-dark.png">
+	<img alt="Illustration of where to find a Slack channel ID" src="channel-id-callout-light.png">
+</picture>
 
 
 ### Sending messages ###
