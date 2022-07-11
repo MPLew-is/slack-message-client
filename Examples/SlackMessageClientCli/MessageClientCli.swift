@@ -1,11 +1,11 @@
 import Foundation
 
-import BlockKitMessage
-import SlackMessageClient
-
 import ArgumentParser
 import AsyncHTTPClient
 import Yams
+
+import BlockKitMessage
+import SlackMessageClient
 
 
 /// An object representing configuration values for the message client
