@@ -9,9 +9,6 @@ import SlackApiClient
 
 /// Slack Block Kit message client to post an input message object to a channel
 public struct MessageClient {
-	private static let postMessageUrl: String = "https://slack.com/api/chat.postMessage"
-
-
 	/// Underlying authenticated API client to actually execute the requests
 	public let apiClient: SlackApiClient
 
@@ -81,8 +78,7 @@ public struct MessageClient {
 		let requestBody: PostMessageRequest = .init(channel: channel, message: message)
 		let requestBody_json: Data = try JSONEncoder().encode(requestBody)
 
-		var request: HTTPClientRequest = .init(url: Self.postMessageUrl)
-		request.method = .POST
+		var request: HTTPClientRequest = SlackApiEndpoint.chat_postMessage.request
 		// Slack will complain with a warning if the character set is not specified.
 		request.headers.add(name: "Content-Type", value: "application/json; charset=utf-8")
 		request.body = .bytes(requestBody_json)

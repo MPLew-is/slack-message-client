@@ -2,6 +2,7 @@ import Foundation
 
 import AsyncHTTPClient
 import NIOCore
+import NIOHTTP1
 
 
 /**
@@ -68,5 +69,37 @@ public class SlackApiClient {
 		modifiedRequest.headers.add(name: "User-Agent",    value: Self.userAgent)
 
 		return try await self.httpClient.execute(modifiedRequest, timeout: timeout)
+	}
+}
+
+
+/// Object representing a Slack API endpoint, which can provide some generated values (like its method, URL, and pre-generated request objects)
+public enum SlackApiEndpoint: String {
+	/// Slack API base URL, for centralization purposes
+	public static let baseUrl: String = "https://slack.com/api"
+
+
+	/// https://api.slack.com/methods/chat.postMessage
+	case chat_postMessage = "chat.postMessage"
+
+
+	/// The HTTP method associated with the endpoint
+	public var method: HTTPMethod {
+		switch self {
+			case .chat_postMessage:
+				return .POST
+		}
+	}
+
+	/// The URL corresponding to the endpoint
+	public var url: String {
+		return "\(Self.baseUrl)/\(self)"
+	}
+
+	/// A new request object pre-configured for the given endpoint
+	public var request: HTTPClientRequest {
+		var request = HTTPClientRequest(url: self.url)
+		request.method = self.method
+		return request
 	}
 }
