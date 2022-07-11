@@ -57,8 +57,10 @@ let package = Package(
 			path: "Examples/SlackMessageClientCli",
 			exclude: [
 				"ReadMe.md",
-				"example-message.png",
-				"channel-id-callout.png",
+				"example-message-light.png",
+				"example-message-dark.png",
+				"channel-id-callout-light.png",
+				"channel-id-callout-dark.png",
 				"config.yaml",
 				"config.example.yaml",
 			]
