@@ -12,9 +12,11 @@ This client is intended to be a drop-in replacement for normal `AsyncHTTPClient`
 This must be a `class` to provide `deinit` capabilities to shut down the embedded `AsyncHTTPClient` instance.
 */
 public class SlackApiClient {
+	/// The user agent for HTTP requests, for centralization purposes
 	private static let userAgent: String = "swift-server/async-http-client"
 
-	/// Stored `AsyncHTTPClient` client object, either auto-created or input by the user
+
+	/// Stored async HTTP client object, either auto-created or input by the user
 	private let httpClient: HTTPClient
 	/// Whether this wrapper should shut down the HTTP client on `deinit`
 	private let shouldShutdownHttpClient: Bool
