@@ -13,7 +13,7 @@ public struct MessageClient {
 
 
 	/// Underlying authenticated API client to actually execute the requests
-	let apiClient: SlackApiClient
+	public let apiClient: SlackApiClient
 
 	/**
 	Create an instance of the message client from its component properties.
