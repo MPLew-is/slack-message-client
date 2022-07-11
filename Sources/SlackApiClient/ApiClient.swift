@@ -15,7 +15,7 @@ public class SlackApiClient {
 	private static let userAgent: String = "swift-server/async-http-client"
 
 	/// Stored `AsyncHTTPClient` client object, either auto-created or input by the user
-	let httpClient: HTTPClient
+	private let httpClient: HTTPClient
 	/// Whether this wrapper should shut down the HTTP client on `deinit`
 	private let shouldShutdownHttpClient: Bool
 
@@ -24,7 +24,7 @@ public class SlackApiClient {
 
 	This is most likely [a bot token](https://api.slack.com/authentication/token-types#bot) beginning with `xoxb-`.
 	**/
-	let authToken: String
+	private let authToken: String
 
 	/**
 	Create an instance of the API client from its component properties.
