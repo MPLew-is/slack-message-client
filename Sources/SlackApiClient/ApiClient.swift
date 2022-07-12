@@ -62,9 +62,16 @@ public class SlackApiClient {
 
 	This method passes through to and from the same method on `AsyncHTTPClient.HTTPClient`, so see that method for more complete documentation.
 	- See: `AsyncHTTPClient.HTTPClient.execute`
+
+	- Parameters:
+		- request: HTTP request object to be executed (after injecting any needed authentication/etc. headers)
+		- timeout: timeout for completing the HTTP request
+
+	- Returns: An `HTTPClientResponse` from the underlying `AsyncHTTPClient` implementation, representing the response to the input request
+	- Throws: Only rethrows errors from the underlying `AsyncHTTPClient` call
 	*/
-	public func execute(_ originalRequest: HTTPClientRequest, timeout: NIOCore.TimeAmount = .seconds(10)) async throws -> HTTPClientResponse {
-		var modifiedRequest = originalRequest
+	public func execute(_ request: HTTPClientRequest, timeout: NIOCore.TimeAmount = .seconds(10)) async throws -> HTTPClientResponse {
+		var modifiedRequest = request
 		modifiedRequest.headers.add(name: "Authorization", value: "Bearer \(self.authToken)")
 		modifiedRequest.headers.add(name: "User-Agent",    value: Self.userAgent)
 
