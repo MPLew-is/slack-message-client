@@ -51,7 +51,7 @@ struct SlackMessageExample {
 			}
 		}
 
-		let client = MessageClient(authToken: "YOUR_SLACK_BOT_TOKEN")
+		let client = SlackMessageClient(authToken: "YOUR_SLACK_BOT_TOKEN")
 		try await client.post(message, to: "YOUR_SLACK_CHANNEL_ID")
 	}
 }

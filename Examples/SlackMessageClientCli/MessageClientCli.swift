@@ -46,7 +46,7 @@ struct MessageClientCli: AsyncParsableCommand {
 			throw ValidationError("A channel is required, either via a config file or command line parameter")
 		}
 
-		let client: MessageClient = .init(authToken: configuration.authToken)
+		let client: SlackMessageClient = .init(authToken: configuration.authToken)
 
 
 		// An example Slack message with header, section, and context blocks

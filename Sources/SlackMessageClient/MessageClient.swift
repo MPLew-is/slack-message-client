@@ -8,7 +8,7 @@ import SlackApiClient
 
 
 /// Slack Block Kit message client to post an input message object to a channel
-public struct MessageClient {
+public struct SlackMessageClient {
 	/// Underlying authenticated API client to actually execute the requests
 	public let apiClient: SlackApiClient
 
