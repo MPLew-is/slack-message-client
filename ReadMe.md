@@ -78,9 +78,9 @@ Feel free to file an issue/PR to change that though.
 
 ### Block Kit ###
 
-- [ ] Top-level message objects
+- [x] Top-level message objects
 	- [x] Basic integration (`blocks` argument)
-	- [ ] Alternate text (`text` argument)
+	- [x] Alternate text (`text` argument)
 
 - [ ] `Mrkdwn` result builder
 	- Basic support for `mrkdwn` embedded in a string is already present, this will just provide a better way to build complicated messages

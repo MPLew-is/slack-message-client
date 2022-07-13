@@ -31,15 +31,21 @@ public struct SlackMessageClient {
 	*/
 	private struct PostMessageRequest: Encodable {
 		let channel: String
+		let text: String?
+
 		let message: Message
+
 
 		enum CodingKeys: String, CodingKey {
 			case channel
+			case text
 		}
 
 		func encode(to encoder: Encoder) throws {
 			var container = encoder.container(keyedBy: Self.CodingKeys.self)
+
 			try container.encode(self.channel, forKey: .channel)
+			try container.encodeIfPresent(self.text, forKey: .text)
 
 			try self.message.encode(to: encoder)
 		}
@@ -72,10 +78,11 @@ public struct SlackMessageClient {
 
 	- Parameters:
 		- channel: Slack channel ID string where the message should be posted
+		- text: fallback text to use in plain-text situations (like push notifications)
 		- message: message object representing the message to post
 	*/
-	public func post(_ message: Message, to channel: String) async throws {
-		let requestBody: PostMessageRequest = .init(channel: channel, message: message)
+	public func post(_ message: Message, to channel: String, fallback text: String? = nil) async throws {
+		let requestBody: PostMessageRequest = .init(channel: channel, text: text, message: message)
 		let requestBody_json: Data = try JSONEncoder().encode(requestBody)
 
 		var request: HTTPClientRequest = SlackApiEndpoint.chat_postMessage.request
