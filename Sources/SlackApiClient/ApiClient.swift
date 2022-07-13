@@ -100,7 +100,7 @@ public enum SlackApiEndpoint: String {
 
 	/// The URL corresponding to the endpoint
 	public var url: String {
-		return "\(Self.baseUrl)/\(self)"
+		return "\(Self.baseUrl)/\(self.rawValue)"
 	}
 
 	/// A new request object pre-configured for the given endpoint
